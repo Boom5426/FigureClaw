@@ -33,7 +33,18 @@ def test_platform_install_guides_exist_and_use_expected_skill_paths() -> None:
 
 def test_readmes_cover_codex_claude_and_dr_claw_install_flows() -> None:
     root_readme = read_text("README.md")
+    zh_readme_path = REPO_ROOT / "README_CN.md"
     skill_readme = read_text("skills/figure-recommender/README.md")
+
+    assert zh_readme_path.exists()
+    zh_readme = zh_readme_path.read_text(encoding="utf-8")
+
+    assert "[简体中文](README_CN.md)" in root_readme
+    assert "[English](README.md)" in zh_readme
+    assert "FigureClaw.png" in root_readme
+    assert "FigureClaw.png" in zh_readme
+    assert "60-Second Quick Start" in root_readme
+    assert "60 秒快速上手" in zh_readme
 
     assert "setup.md" in root_readme
     assert "## Install With Codex" in root_readme

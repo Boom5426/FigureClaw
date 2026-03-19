@@ -1,65 +1,29 @@
 # FigureClaw
 
-FigureClaw is a portable scientific figure skill package centered on
-`figure-recommender`: a structured figure recommendation and Python codegen
-skill for paper figures, supplementary figures, and analysis plots.
+English | [简体中文](README_CN.md)
 
-## Fastest Setup
+<!-- Hero image slot: add FigureClaw.png to the repository root -->
+![FigureClaw](FigureClaw.png)
+
+Executable-first scientific figure recommendations with runnable Python plotting
+code for Codex, Claude Code, and Dr. Claw.
+
+## Why FigureClaw
+
+- Start from one setup prompt instead of a long manual install guide
+- Prefer charts that already ship runnable local code templates
+- Keep unsupported style-heavy charts as conceptual requests instead of
+  pretending code exists
+- Ship examples, audits, packaging tools, and local references in one portable
+  skill package
+
+## 60-Second Quick Start
 
 Ask your agent to read the unified setup guide:
 
 `Read https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/setup.md and set up FigureClaw for me.`
 
-## What It Ships
-
-- `skills/figure-recommender`
-  - Structured `figure_brief -> chart selection -> palette -> Python plotting code`
-  - Tier 1 template-driven code generation
-  - Tier 2 and Tier 3 recommendation plus fallback behavior
-  - Self-contained references, templates, examples, and packaging scripts
-
-## Why This Repo Exists
-
-The goal is to make one scientific plotting skill installable in multiple agent
-environments without changing the runtime logic:
-
-- Codex can install it from a raw `INSTALL.md`
-- Claude Code can install it from a Claude-specific `INSTALL.md`
-- Dr. Claw can import the packaged zip directly
-- Users who prefer manual setup can copy or symlink the skill folder themselves
-
-## Core Workflow
-
-1. Accept a structured `figure_brief`
-2. Select the best supported figure type
-3. Choose a palette mode
-4. Return a fixed six-section response
-5. Emit runnable Tier 1 Python plotting code from local templates
-
-## Tier 1 Charts
-
-These chart families currently ship direct code generation support:
-
-- Contrast dot plot
-- Stacked bar chart
-- Raincloud plot
-- Line chart
-- Multi-series trend chart
-- Heatmap
-- Benchmark scatter plot with error bars
-- Correlation network heatmap
-
-## Palette Modes
-
-- `paper-neutral`
-- `paper-emphasis`
-- `sequential`
-- `diverging`
-- `presentation-bold`
-
-## Quick Start
-
-Run the generator directly:
+Then run the smallest local example:
 
 ```bash
 python3 skills/figure-recommender/scripts/generate_figure_response.py \
@@ -67,11 +31,34 @@ python3 skills/figure-recommender/scripts/generate_figure_response.py \
   --output json
 ```
 
-Build the Dr. Claw import package:
+You will get:
 
-```bash
-python3 skills/figure-recommender/scripts/package_skill.py
-```
+- an executable `primary_chart`
+- a palette recommendation
+- dependency hints
+- runnable Python plotting code
+
+## What You Can Generate
+
+FigureClaw currently ships executable templates for:
+
+- group comparison figures
+- composition figures
+- distribution figures
+- line and multi-series trend figures
+- matrix heatmaps
+- benchmark scatter plots with error bars
+- weighted relation and network-style figures
+
+Conceptual requests such as `sunburst` or `chord` are still supported, but they
+are exposed as conceptual choices while FigureClaw emits executable code from a
+supported chart.
+
+## Install
+
+The preferred entrypoint is [`setup.md`](setup.md), which routes the user to
+the right flow for the current environment and includes a post-install
+verification step.
 
 ## Install With Codex
 
@@ -97,19 +84,30 @@ Manual path target:
 
 1. Run `python3 skills/figure-recommender/scripts/package_skill.py`
 2. Upload the generated `dist/figure-recommender.zip` in the Dr. Claw Skills UI
-3. Let Dr. Claw discover the packaged `SKILL.md`, templates, and references
+3. Let Dr. Claw discover the packaged `SKILL.md`, templates, references, and
+   examples
 
-## Skill Contract
+## Example Workflow
 
-Input brief fields:
+The default workflow is:
 
-- `story_goal`
-- `field_mapping`
-- `id`
-- `data_shape`
-- `figure_role`
-- `style_mode`
-- `palette_mode`
+1. describe the figure goal
+2. resolve or infer a structured `figure_brief`
+3. choose the best executable chart
+4. choose a compatible palette
+5. emit runnable Python code from local templates
+
+Minimal brief shape:
+
+```json
+{
+  "story_goal": "compare_group_difference",
+  "field_mapping": {
+    "category": "condition",
+    "value": "score"
+  }
+}
+```
 
 Defaults:
 
@@ -117,23 +115,31 @@ Defaults:
 - `style_mode = readable`
 - `palette_mode = auto`
 
-Output sections:
+Starter examples live under
+[`skills/figure-recommender/examples/briefs/`](skills/figure-recommender/examples/briefs/).
 
-- `Primary figure`
-- `Optional fallback`
-- `Palette`
-- `Dependencies`
-- `Python code`
-- `Adaptation notes`
+## How It Works
 
-## Repository Layout
+FigureClaw follows an executable-first contract:
 
-- `skills/figure-recommender/`: skill package
-- `.codex/INSTALL.md`: Codex installation entrypoint
-- `.claude/INSTALL.md`: Claude Code installation entrypoint
+1. Normalize and validate one brief object
+2. Rank chart candidates
+3. Pick the best executable `primary_chart`
+4. Optionally expose a `conceptual_chart` when the user explicitly asks for an
+   unsupported chart family
+5. Render Python code from the shipped local template set
+
+The result always keeps the executable chart and generated code aligned.
+
+## Repository Structure
+
 - `setup.md`: unified agent-readable setup entrypoint
-- `tests/`: fixture and packaging tests
-- `docs/`: plans, specs, and project notes
+- `skills/figure-recommender/`: runtime package, references, templates, and
+  examples
+- `.codex/INSTALL.md`: Codex-specific install flow
+- `.claude/INSTALL.md`: Claude Code-specific install flow
+- `docs/source-audits/`: notebook source audit artifacts
+- `tests/`: regression, packaging, validation, and selection tests
 
 ## Development
 
@@ -147,4 +153,11 @@ Rebuild the zip package:
 
 ```bash
 python3 skills/figure-recommender/scripts/package_skill.py
+```
+
+Regenerate notebook audit artifacts:
+
+```bash
+python3 skills/figure-recommender/scripts/export_source_notebooks.py \
+  --output-dir docs/source-audits
 ```
