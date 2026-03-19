@@ -2,6 +2,8 @@
 
 Self-contained skill package for structured scientific figure selection, palette recommendation, and Python plotting code generation.
 
+Start from the unified setup guide at repository root `setup.md` when installing through an agent.
+
 ## What It Does
 
 - Accepts a structured `figure_brief`
@@ -13,16 +15,16 @@ Self-contained skill package for structured scientific figure selection, palette
 
 Required fields:
 
-- `id`
 - `story_goal`
-- `data_shape`
 - `field_mapping`
-- `figure_role`
-- `style_mode`
-- `palette_mode`
 
 Optional fields:
 
+- `id`
+- `data_shape`
+- `figure_role`
+- `style_mode`
+- `palette_mode`
 - `candidate_chart_types`
 - `notes`
 
@@ -78,11 +80,11 @@ This writes `dist/figure-recommender.zip`.
 
 ```bash
 python3 skills/figure-recommender/scripts/generate_figure_response.py \
-  --brief-json '{"id":"fig-01","story_goal":"compare_group_difference","data_shape":"grouped_metric","field_mapping":{"category":"condition","value":"score"},"figure_role":"paper-main","style_mode":"readable","palette_mode":"paper-neutral"}' \
+  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
   --output json
 ```
 
-Pass a single `figure_brief` object, not the whole fixtures array in `examples/figure_briefs.json`.
+Pass a single `figure_brief` object. Starter examples live under `examples/briefs/`.
 
 ## Install With Codex
 

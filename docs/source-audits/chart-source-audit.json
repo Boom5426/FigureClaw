@@ -1,0 +1,147 @@
+{
+  "scope": "registry-backed chart notebooks plus palette reference",
+  "charts": [
+    {
+      "chart_id": "contrast_dot",
+      "source_notebook": "Awesome-Scientific-Figures/对比点图.ipynb",
+      "exported_python": "notebooks/对比点图.py",
+      "decision": "rename",
+      "actual_visual_grammar": "labeled two-metric comparison scatter",
+      "actual_backend": [
+        "matplotlib"
+      ],
+      "actual_data_shape": "benchmark points with x/y metrics and labels",
+      "notes": "The notebook called 对比点图 behaves like a labeled benchmark scatter, not a grouped category contrast-dot chart with mean and SEM overlays."
+    },
+    {
+      "chart_id": "stacked_bar",
+      "source_notebook": "Awesome-Scientific-Figures/堆叠柱状图.ipynb",
+      "exported_python": "notebooks/堆叠柱状图.py",
+      "decision": "keep",
+      "actual_visual_grammar": "stacked categorical bar chart",
+      "actual_backend": [
+        "matplotlib",
+        "pandas",
+        "numpy"
+      ],
+      "actual_data_shape": "category + subgroup + value table",
+      "notes": "The current template is a reasonable simplified version of the notebook."
+    },
+    {
+      "chart_id": "raincloud",
+      "source_notebook": "Awesome-Scientific-Figures/云雨图.ipynb",
+      "exported_python": "notebooks/云雨图.py",
+      "decision": "keep",
+      "actual_visual_grammar": "distribution plot combining density and points",
+      "actual_backend": [
+        "matplotlib",
+        "pandas",
+        "numpy"
+      ],
+      "actual_data_shape": "grouped samples by category",
+      "notes": "The current raincloud template preserves the core distribution-comparison semantics."
+    },
+    {
+      "chart_id": "line",
+      "source_notebook": "Awesome-Scientific-Figures/折线图.ipynb",
+      "exported_python": "notebooks/折线图.py",
+      "decision": "keep",
+      "actual_visual_grammar": "ordered line chart",
+      "actual_backend": [
+        "matplotlib"
+      ],
+      "actual_data_shape": "ordered x/y series",
+      "notes": "The template matches the source chart family closely."
+    },
+    {
+      "chart_id": "multi_trend",
+      "source_notebook": "Awesome-Scientific-Figures/多变量变化趋势图.ipynb",
+      "exported_python": "notebooks/多变量变化趋势图.py",
+      "decision": "keep",
+      "actual_visual_grammar": "multi-series time trend comparison",
+      "actual_backend": [
+        "matplotlib",
+        "pandas"
+      ],
+      "actual_data_shape": "multiple named series over time",
+      "notes": "The notebook uses heavier styling than the template, but the simplified template preserves the same broad multi-series trend story."
+    },
+    {
+      "chart_id": "heatmap",
+      "source_notebook": "Awesome-Scientific-Figures/热力图.ipynb",
+      "exported_python": "notebooks/热力图.py",
+      "decision": "keep",
+      "actual_visual_grammar": "matrix heatmap",
+      "actual_backend": [
+        "seaborn",
+        "matplotlib",
+        "pandas"
+      ],
+      "actual_data_shape": "row/column/value matrix table",
+      "notes": "The shipped heatmap template is semantically aligned with the source notebook."
+    },
+    {
+      "chart_id": "benchmark_scatter_error",
+      "source_notebook": "Awesome-Scientific-Figures/散点图_误差棒组合图.ipynb",
+      "exported_python": "notebooks/散点图_误差棒组合图.py",
+      "decision": "keep",
+      "actual_visual_grammar": "two-metric scatter with x/y error bars",
+      "actual_backend": [
+        "matplotlib",
+        "numpy",
+        "pandas"
+      ],
+      "actual_data_shape": "label + x/y means with x/y uncertainty",
+      "notes": "The template preserves the notebook's core benchmark comparison structure."
+    },
+    {
+      "chart_id": "correlation_network",
+      "source_notebook": "Awesome-Scientific-Figures/相关性网络热图.ipynb",
+      "exported_python": "notebooks/相关性网络热图.py",
+      "decision": "keep",
+      "actual_visual_grammar": "network-like relation map for weighted pairwise associations",
+      "actual_backend": [
+        "matplotlib",
+        "numpy"
+      ],
+      "actual_data_shape": "edge table with source, target, and weight",
+      "notes": "The notebook is heavily styled, but the template still represents the same weighted relationship story."
+    },
+    {
+      "chart_id": "sunburst",
+      "source_notebook": "Awesome-Scientific-Figures/旭日图.ipynb",
+      "exported_python": "notebooks/旭日图.py",
+      "decision": "demote",
+      "actual_visual_grammar": "hierarchical radial partition chart",
+      "actual_backend": [
+        "plotly",
+        "pandas"
+      ],
+      "actual_data_shape": "hierarchical parent/child/value structure",
+      "notes": "The chart is conceptually valid but should remain non-default because it is not executable in the Tier 1 path."
+    },
+    {
+      "chart_id": "chord",
+      "source_notebook": "Awesome-Scientific-Figures/弦图.ipynb",
+      "exported_python": "notebooks/弦图.py",
+      "decision": "demote",
+      "actual_visual_grammar": "circular flow/relation chord diagram",
+      "actual_backend": [
+        "pycirclize",
+        "pandas",
+        "numpy",
+        "matplotlib"
+      ],
+      "actual_data_shape": "source/target/weight flow table",
+      "notes": "The chart is too style-heavy and backend-specific for the default executable-first path."
+    }
+  ],
+  "extra_notebooks": [
+    {
+      "name": "配色",
+      "purpose": "palette reference",
+      "notes": "Palette notebook kept for color guidance review and future palette reconciliation.",
+      "exported_python": "notebooks/配色.py"
+    }
+  ]
+}
