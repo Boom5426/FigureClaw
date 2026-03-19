@@ -2,7 +2,9 @@
 
 Self-contained skill package for structured scientific figure selection, palette recommendation, and Python plotting code generation.
 
-Start from the unified setup guide at repository root `setup.md` when installing through an agent.
+This README documents the packaged skill boundary.
+
+Start from the unified setup guide at repository root `setup.md` when installing through an agent for the first time.
 
 ## What It Does
 
@@ -68,6 +70,8 @@ The packaged templates currently support direct code generation for:
 - `examples/`
 - `scripts/`
 
+The zip package intentionally excludes `tests/`, `docs/source-audits/`, and `Figures/`.
+
 ## Build Zip Package
 
 ```bash
@@ -91,6 +95,7 @@ Pass a single `figure_brief` object. Starter examples live under `examples/brief
 1. Clone the repository
 2. Link `skills/figure-recommender/` into `~/.codex/skills/figure-recommender`
 3. Restart Codex
+4. Re-run the shared smoke test from the repository root
 
 Or ask Codex to fetch:
 
@@ -117,6 +122,10 @@ python3 skills/figure-recommender/scripts/package_skill.py
 ## Verify
 
 ```bash
+python3 skills/figure-recommender/scripts/generate_figure_response.py \
+  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
+  --output json
+
 python3 -m pytest tests -q
 python3 skills/figure-recommender/scripts/package_skill.py
 ```

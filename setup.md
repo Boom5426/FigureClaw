@@ -7,18 +7,18 @@ Read this file and set up FigureClaw for me in the current environment.
 FigureClaw installs the `figure-recommender` skill package for executable-first
 scientific figure recommendation and Python code generation.
 
-## Choose target environment
+## Primary path
 
-- Codex
+If you are in Codex, start here first.
+
+1. Fetch and follow `.codex/INSTALL.md`
+2. Verify the skill exists at `~/.codex/skills/figure-recommender`
+3. Run the shared smoke test from the cloned repository root
+
+## Other supported environments
+
 - Claude Code
 - Dr. Claw
-
-## Install
-
-### Codex
-
-1. Follow instructions in `.codex/INSTALL.md`
-2. Verify the skill exists at `~/.codex/skills/figure-recommender`
 
 ### Claude Code
 
@@ -30,7 +30,7 @@ scientific figure recommendation and Python code generation.
 1. Run `python3 skills/figure-recommender/scripts/package_skill.py`
 2. Upload `dist/figure-recommender.zip`
 
-## Verify
+## Shared smoke test
 
 Run:
 
@@ -42,9 +42,9 @@ python3 skills/figure-recommender/scripts/generate_figure_response.py \
 
 Confirm the response contains:
 
-- `Primary figure`
-- `Palette`
-- `Python code`
+- `"primary_chart"`
+- `"contrast_dot"`
+- `"python_code"`
 
 ## First use
 

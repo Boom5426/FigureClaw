@@ -27,6 +27,7 @@ def test_package_skill_builds_dr_claw_compatible_zip(tmp_path: Path) -> None:
     with zipfile.ZipFile(zip_path) as archive:
         names = set(archive.namelist())
         assert "figure-recommender/SKILL.md" in names
+        assert "figure-recommender/README.md" in names
         assert "figure-recommender/references/chart-registry.json" in names
         assert "figure-recommender/references/palette-registry.json" in names
         assert "figure-recommender/templates/contrast_dot.py.tmpl" in names
@@ -34,5 +35,12 @@ def test_package_skill_builds_dr_claw_compatible_zip(tmp_path: Path) -> None:
         for relative_path in manifest["include"]:
             assert f"figure-recommender/{relative_path}" in names
         skill_md = archive.read("figure-recommender/SKILL.md").decode("utf-8")
+        skill_readme = archive.read("figure-recommender/README.md").decode("utf-8")
+
+    assert all(not name.startswith("figure-recommender/tests/") for name in names)
+    assert all(not name.startswith("figure-recommender/docs/source-audits/") for name in names)
+    assert all(not name.startswith("figure-recommender/Figures/") for name in names)
+    assert all(not name.endswith("FigureClaw.png") for name in names)
 
     assert re.search(r"^name:\s*figure-recommender\s*$", skill_md, re.MULTILINE)
+    assert "This README documents the packaged skill boundary." in skill_readme

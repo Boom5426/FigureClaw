@@ -10,18 +10,27 @@ Python 代码的图，而不是先推荐一个没有代码模板的复杂图。
 
 ## 为什么用 FigureClaw
 
-- 安装入口统一，先让 agent 读 `setup.md` 就能开始
-- 默认优先选择已经有本地模板的可执行图
-- 对 `sunburst`、`chord` 这类暂不直出代码的图，只作为概念选择暴露
+科研自动化已经普及，但“好图难画”依然是最大痛点之一。
+
+- 顶刊和普刊的显著差异之一，就是图表的质量和表达力。
+- 很多科研人员和开发者并不擅长高质量可视化，成果表达受限。
+- FigureClaw 让“顶刊级”可视化变得简单、自动、可复现，让你的成果脱颖而出。
+
+你将获得：
+- 统一的安装入口，agent 读 `setup.md` 即可开始
+- 默认只推荐有本地可运行模板的图
+- `sunburst`、`chord` 等暂不支持的图只作为概念选项，不假装能直接生成代码
 - 自带示例、模板、参考数据、打包脚本和图源审计产物
 
 ## 60 秒快速上手
+
+FigureClaw 当前默认按 Codex-first 路径组织首次安装。
 
 让你的 agent 先读统一安装入口：
 
 `Read https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/setup.md and set up FigureClaw for me.`
 
-然后直接跑最小示例：
+然后在仓库根目录直接跑统一 smoke test：
 
 ```bash
 python3 skills/figure-recommender/scripts/generate_figure_response.py \
@@ -32,9 +41,23 @@ python3 skills/figure-recommender/scripts/generate_figure_response.py \
 你会拿到：
 
 - 当前可执行的 `primary_chart`
+- 分组比较示例默认会落到 `"contrast_dot"`
 - 配色建议
 - 依赖信息
 - 可运行的 Python 绘图代码
+
+<details>
+<summary>手动安装 Codex Skill</summary>
+
+```bash
+git clone https://github.com/Boom5426/FigureClaw.git ~/.codex/FigureClaw
+mkdir -p ~/.codex/skills
+ln -sfn ~/.codex/FigureClaw/skills/figure-recommender ~/.codex/skills/figure-recommender
+```
+
+创建软链接后重启 Codex，再回到 `~/.codex/FigureClaw` 重跑上面的 smoke test。
+
+</details>
 
 ## 能做什么图
 
@@ -54,7 +77,7 @@ python3 skills/figure-recommender/scripts/generate_figure_response.py \
 ## 安装
 
 推荐优先使用根目录的 [`setup.md`](setup.md)。它会按运行环境分流到正确的
-安装路径，并附带安装后的验证步骤。
+安装路径，并附带统一的安装后 smoke test。
 
 ## Install With Codex
 
@@ -65,6 +88,13 @@ python3 skills/figure-recommender/scripts/generate_figure_response.py \
 手动路径：
 
 `~/.codex/skills/figure-recommender`
+
+成功标准：
+
+- `~/.codex/skills/figure-recommender` 已存在
+- smoke test 输出包含 `"primary_chart"`
+- 分组比较示例落到 `"contrast_dot"`
+- 输出里包含 `"python_code"`
 
 ## Install With Claude
 
@@ -81,6 +111,22 @@ python3 skills/figure-recommender/scripts/generate_figure_response.py \
 1. 运行 `python3 skills/figure-recommender/scripts/package_skill.py`
 2. 在 Dr. Claw Skills UI 上传生成的 `dist/figure-recommender.zip`
 3. 让 Dr. Claw 发现打包后的 `SKILL.md`、模板、参考和示例
+
+## 验证安装
+
+在仓库根目录执行统一 smoke test：
+
+```bash
+python3 skills/figure-recommender/scripts/generate_figure_response.py \
+  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
+  --output json
+```
+
+确认输出里包含：
+
+- `"primary_chart"`
+- `"contrast_dot"`
+- `"python_code"`
 
 ## 使用流程
 
@@ -134,6 +180,11 @@ FigureClaw 当前遵循 executable-first 规则：
 - `.claude/INSTALL.md`: Claude Code 安装入口
 - `docs/source-audits/`: 图源 notebook 审计产物
 - `tests/`: 回归、打包、校验和选图测试
+
+## 手动安装
+
+首次接触项目时，优先走上面的统一入口和折叠的 Codex 手动安装块。只有在本地
+安装链路出问题时，才直接去看具体的平台安装文档。
 
 ## 开发
 
