@@ -1,0 +1,229 @@
+[
+  {
+    "name": "group_difference_main",
+    "brief": {
+      "id": "fig-01",
+      "story_goal": "compare_group_difference",
+      "data_shape": "grouped_metric",
+      "field_mapping": {
+        "category": "condition",
+        "value": "score"
+      },
+      "figure_role": "paper-main",
+      "style_mode": "readable",
+      "palette_mode": "paper-neutral"
+    },
+    "expected": {
+      "primary_chart_id": "contrast_dot",
+      "code_chart_id": "contrast_dot",
+      "fallback_chart_id": null,
+      "palette_mode": "paper-neutral"
+    }
+  },
+  {
+    "name": "composition_main",
+    "brief": {
+      "id": "fig-02",
+      "story_goal": "compare_composition",
+      "data_shape": "composition_table",
+      "field_mapping": {
+        "category": "group",
+        "subgroup": "cell_type",
+        "value": "fraction"
+      },
+      "figure_role": "paper-main",
+      "style_mode": "readable",
+      "palette_mode": "paper-emphasis"
+    },
+    "expected": {
+      "primary_chart_id": "stacked_bar",
+      "code_chart_id": "stacked_bar",
+      "fallback_chart_id": null,
+      "palette_mode": "paper-emphasis"
+    }
+  },
+  {
+    "name": "distribution_supplement",
+    "brief": {
+      "id": "fig-03",
+      "story_goal": "show_distribution",
+      "data_shape": "grouped_samples",
+      "field_mapping": {
+        "category": "treatment",
+        "value": "expression"
+      },
+      "figure_role": "supplement",
+      "style_mode": "readable",
+      "palette_mode": "paper-neutral"
+    },
+    "expected": {
+      "primary_chart_id": "raincloud",
+      "code_chart_id": "raincloud",
+      "fallback_chart_id": null,
+      "palette_mode": "paper-neutral"
+    }
+  },
+  {
+    "name": "time_trend_main",
+    "brief": {
+      "id": "fig-04",
+      "story_goal": "show_trend",
+      "data_shape": "time_series",
+      "field_mapping": {
+        "x": "timepoint",
+        "y": "auc",
+        "series": "method"
+      },
+      "figure_role": "paper-main",
+      "style_mode": "readable",
+      "palette_mode": "sequential"
+    },
+    "expected": {
+      "primary_chart_id": "line",
+      "code_chart_id": "line",
+      "fallback_chart_id": null,
+      "palette_mode": "sequential"
+    }
+  },
+  {
+    "name": "multi_trend_supplement",
+    "brief": {
+      "id": "fig-05",
+      "story_goal": "show_multi_trend",
+      "data_shape": "time_series",
+      "field_mapping": {
+        "x": "pseudotime",
+        "y": "signal",
+        "series": "gene"
+      },
+      "figure_role": "supplement",
+      "style_mode": "dense",
+      "palette_mode": "sequential"
+    },
+    "expected": {
+      "primary_chart_id": "multi_trend",
+      "code_chart_id": "multi_trend",
+      "fallback_chart_id": null,
+      "palette_mode": "sequential"
+    }
+  },
+  {
+    "name": "matrix_pattern_main",
+    "brief": {
+      "id": "fig-06",
+      "story_goal": "show_matrix_pattern",
+      "data_shape": "matrix",
+      "field_mapping": {
+        "row": "gene",
+        "column": "sample",
+        "value": "z_score"
+      },
+      "figure_role": "paper-main",
+      "style_mode": "readable",
+      "palette_mode": "diverging"
+    },
+    "expected": {
+      "primary_chart_id": "heatmap",
+      "code_chart_id": "heatmap",
+      "fallback_chart_id": null,
+      "palette_mode": "diverging"
+    }
+  },
+  {
+    "name": "benchmark_uncertainty_main",
+    "brief": {
+      "id": "fig-07",
+      "story_goal": "benchmark_tradeoff_with_uncertainty",
+      "data_shape": "benchmark_table",
+      "field_mapping": {
+        "x": "accuracy",
+        "y": "latency",
+        "x_error": "accuracy_std",
+        "y_error": "latency_std",
+        "label": "method"
+      },
+      "figure_role": "paper-main",
+      "style_mode": "readable",
+      "palette_mode": "paper-emphasis"
+    },
+    "expected": {
+      "primary_chart_id": "benchmark_scatter_error",
+      "code_chart_id": "benchmark_scatter_error",
+      "fallback_chart_id": null,
+      "palette_mode": "paper-emphasis"
+    }
+  },
+  {
+    "name": "network_modules_main",
+    "brief": {
+      "id": "fig-08",
+      "story_goal": "show_network_relations",
+      "data_shape": "edge_table",
+      "field_mapping": {
+        "source": "feature_a",
+        "target": "feature_b",
+        "weight": "correlation",
+        "significance": "p_value"
+      },
+      "figure_role": "paper-main",
+      "style_mode": "readable",
+      "palette_mode": "diverging"
+    },
+    "expected": {
+      "primary_chart_id": "correlation_network",
+      "code_chart_id": "correlation_network",
+      "fallback_chart_id": null,
+      "palette_mode": "diverging"
+    }
+  },
+  {
+    "name": "hierarchy_requested",
+    "brief": {
+      "id": "fig-09",
+      "story_goal": "show_hierarchy",
+      "data_shape": "hierarchy",
+      "field_mapping": {
+        "parent": "lineage",
+        "child": "subtype",
+        "value": "fraction"
+      },
+      "figure_role": "paper-main",
+      "style_mode": "readable",
+      "palette_mode": "paper-neutral",
+      "candidate_chart_types": [
+        "sunburst"
+      ]
+    },
+    "expected": {
+      "primary_chart_id": "sunburst",
+      "code_chart_id": "stacked_bar",
+      "fallback_chart_id": "stacked_bar",
+      "palette_mode": "paper-neutral"
+    }
+  },
+  {
+    "name": "style_forward_chord",
+    "brief": {
+      "id": "fig-10",
+      "story_goal": "show_flow_relationship",
+      "data_shape": "edge_table",
+      "field_mapping": {
+        "source": "sender",
+        "target": "receiver",
+        "weight": "interaction_score"
+      },
+      "figure_role": "slides",
+      "style_mode": "style-forward",
+      "palette_mode": "presentation-bold",
+      "candidate_chart_types": [
+        "chord"
+      ]
+    },
+    "expected": {
+      "primary_chart_id": "chord",
+      "code_chart_id": "correlation_network",
+      "fallback_chart_id": "correlation_network",
+      "palette_mode": "presentation-bold"
+    }
+  }
+]

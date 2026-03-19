@@ -1,0 +1,45 @@
+from __future__ import annotations
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+PALETTE = __PALETTE__
+TITLE = __TITLE__
+SOURCE_COL = __SOURCE_COL__
+TARGET_COL = __TARGET_COL__
+WEIGHT_COL = __WEIGHT_COL__
+SIGNIFICANCE_COL = __SIGNIFICANCE_COL__
+
+
+def build_figure(df: pd.DataFrame):
+    data = df.copy()
+    nodes = sorted(set(data[SOURCE_COL]).union(set(data[TARGET_COL])))
+    if not nodes:
+        raise ValueError("No nodes found in the input dataframe.")
+
+    angles = np.linspace(0, 2 * np.pi, num=len(nodes), endpoint=False)
+    positions = {node: (np.cos(angle), np.sin(angle)) for node, angle in zip(nodes, angles)}
+    fig, ax = plt.subplots(figsize=(7, 7), dpi=150)
+
+    for _, row in data.iterrows():
+      source = row[SOURCE_COL]
+      target = row[TARGET_COL]
+      weight = float(row[WEIGHT_COL])
+      x0, y0 = positions[source]
+      x1, y1 = positions[target]
+      color = PALETTE[-1] if weight >= 0 else PALETTE[0]
+      alpha = 0.9 if SIGNIFICANCE_COL and SIGNIFICANCE_COL in row and float(row[SIGNIFICANCE_COL]) < 0.05 else 0.35
+      ax.plot([x0, x1], [y0, y1], color=color, linewidth=1.5 + abs(weight) * 2.5, alpha=alpha, zorder=1)
+
+    for idx, node in enumerate(nodes):
+      x, y = positions[node]
+      ax.scatter(x, y, s=280, color=PALETTE[(idx + 1) % len(PALETTE)], edgecolor="white", linewidth=1.2, zorder=2)
+      ax.text(x, y, str(node), ha="center", va="center", fontsize=9, color="#1f1f1f", zorder=3)
+
+    ax.set_title(TITLE, fontsize=15)
+    ax.set_xlim(-1.25, 1.25)
+    ax.set_ylim(-1.25, 1.25)
+    ax.axis("off")
+    fig.tight_layout()
+    return fig

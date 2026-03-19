@@ -1,0 +1,54 @@
+from __future__ import annotations
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+PALETTE = __PALETTE__
+TITLE = __TITLE__
+X_LABEL = __X_LABEL__
+Y_LABEL = __Y_LABEL__
+CATEGORY_COL = __CATEGORY_COL__
+VALUE_COL = __VALUE_COL__
+
+
+def build_figure(df: pd.DataFrame):
+    data = df.copy()
+    categories = list(data[CATEGORY_COL].dropna().unique())
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=150)
+
+    for idx, category in enumerate(categories):
+        subset = data.loc[data[CATEGORY_COL] == category, VALUE_COL].astype(float)
+        jitter = np.linspace(-0.08, 0.08, num=len(subset)) if len(subset) > 1 else np.array([0.0])
+        ax.scatter(
+            np.full(len(subset), idx) + jitter,
+            subset,
+            s=35,
+            color=PALETTE[idx % len(PALETTE)],
+            alpha=0.6,
+            linewidths=0,
+            zorder=2,
+        )
+        ax.scatter(
+            idx,
+            subset.mean(),
+            s=140,
+            color=PALETTE[idx % len(PALETTE)],
+            edgecolor="white",
+            linewidth=1.2,
+            zorder=3,
+        )
+        if len(subset) > 1:
+            sem = subset.std(ddof=1) / np.sqrt(len(subset))
+            ax.errorbar(idx, subset.mean(), yerr=sem, color="#222222", capsize=4, linewidth=1.2, zorder=4)
+
+    ax.set_xticks(range(len(categories)))
+    ax.set_xticklabels(categories, rotation=0)
+    ax.set_title(TITLE, fontsize=15)
+    ax.set_xlabel(X_LABEL, fontsize=12)
+    ax.set_ylabel(Y_LABEL, fontsize=12)
+    ax.grid(axis="y", linestyle="--", alpha=0.25)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    fig.tight_layout()
+    return fig
