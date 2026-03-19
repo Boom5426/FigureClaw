@@ -1,0 +1,16 @@
+{
+  "id": "fig-05",
+  "story_goal": "show_hierarchy",
+  "data_shape": "hierarchy",
+  "field_mapping": {
+    "parent": "lineage",
+    "child": "subtype",
+    "value": "fraction"
+  },
+  "figure_role": "paper-main",
+  "style_mode": "readable",
+  "palette_mode": "paper-neutral",
+  "candidate_chart_types": [
+    "sunburst"
+  ]
+}

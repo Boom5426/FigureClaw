@@ -4,6 +4,12 @@ FigureClaw is a portable scientific figure skill package centered on
 `figure-recommender`: a structured figure recommendation and Python codegen
 skill for paper figures, supplementary figures, and analysis plots.
 
+## Fastest Setup
+
+Ask your agent to read the unified setup guide:
+
+`Read https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/setup.md and set up FigureClaw for me.`
+
 ## What It Ships
 
 - `skills/figure-recommender`
@@ -57,7 +63,7 @@ Run the generator directly:
 
 ```bash
 python3 skills/figure-recommender/scripts/generate_figure_response.py \
-  --brief-json '{"id":"fig-01","story_goal":"compare_group_difference","data_shape":"grouped_metric","field_mapping":{"category":"condition","value":"score"},"figure_role":"paper-main","style_mode":"readable","palette_mode":"paper-neutral"}' \
+  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
   --output json
 ```
 
@@ -97,13 +103,19 @@ Manual path target:
 
 Input brief fields:
 
-- `id`
 - `story_goal`
-- `data_shape`
 - `field_mapping`
+- `id`
+- `data_shape`
 - `figure_role`
 - `style_mode`
 - `palette_mode`
+
+Defaults:
+
+- `figure_role = paper-main`
+- `style_mode = readable`
+- `palette_mode = auto`
 
 Output sections:
 
@@ -119,6 +131,7 @@ Output sections:
 - `skills/figure-recommender/`: skill package
 - `.codex/INSTALL.md`: Codex installation entrypoint
 - `.claude/INSTALL.md`: Claude Code installation entrypoint
+- `setup.md`: unified agent-readable setup entrypoint
 - `tests/`: fixture and packaging tests
 - `docs/`: plans, specs, and project notes
 

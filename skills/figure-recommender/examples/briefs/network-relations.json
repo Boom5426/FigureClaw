@@ -1,0 +1,15 @@
+{
+  "id": "fig-04",
+  "story_goal": "show_network_relations",
+  "data_shape": "edge_table",
+  "field_mapping": {
+    "source": "feature_a",
+    "target": "feature_b",
+    "weight": "correlation",
+    "significance": "p_value"
+  },
+  "figure_role": "paper-main",
+  "style_mode": "readable",
+  "palette_mode": "diverging"
+}
+

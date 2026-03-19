@@ -10,7 +10,7 @@ import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CLI_PATH = REPO_ROOT / "skills" / "figure-recommender" / "scripts" / "generate_figure_response.py"
-FIXTURE_PATH = REPO_ROOT / "skills" / "figure-recommender" / "examples" / "figure_briefs.json"
+FIXTURE_PATH = REPO_ROOT / "tests" / "fixtures" / "figure_cases.json"
 
 
 def load_fixtures() -> list[dict]:
@@ -103,6 +103,8 @@ def test_cli_outputs_expected_chart_selection_for_fixtures() -> None:
         assert result["code_chart"]["chart_id"] == expected["code_chart_id"], fixture["name"]
         fallback = result["fallback_chart"]["chart_id"] if result["fallback_chart"] else None
         assert fallback == expected["fallback_chart_id"], fixture["name"]
+        conceptual = result["conceptual_chart"]["chart_id"] if result.get("conceptual_chart") else None
+        assert conceptual == expected.get("conceptual_chart_id"), fixture["name"]
         assert result["palette"]["palette_mode"] == expected["palette_mode"], fixture["name"]
         assert result["sections"] == [
             "Primary figure",

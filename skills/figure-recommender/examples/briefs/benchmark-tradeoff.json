@@ -1,0 +1,16 @@
+{
+  "id": "fig-03",
+  "story_goal": "benchmark_tradeoff_with_uncertainty",
+  "data_shape": "benchmark_table",
+  "field_mapping": {
+    "x": "accuracy",
+    "y": "latency",
+    "x_error": "accuracy_std",
+    "y_error": "latency_std",
+    "label": "method"
+  },
+  "figure_role": "paper-main",
+  "style_mode": "readable",
+  "palette_mode": "paper-emphasis"
+}
+
