@@ -5,8 +5,7 @@
 <!-- Hero image slot: add FigureClaw.png to the repository root -->
 ![FigureClaw](FigureClaw.png)
 
-一个面向科研出图场景的 executable-first 工具：优先返回当前就能生成可运行
-Python 代码的图，而不是先推荐一个没有代码模板的复杂图。
+让科研出图不再难：FigureClaw 专为科研高质量可视化打造，自动推荐最适合的数据图表，并一键生成可复现的 Python 绘图代码，助你轻松画出顶刊级好图。
 
 ## 为什么用 FigureClaw
 
