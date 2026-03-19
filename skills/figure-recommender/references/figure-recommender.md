@@ -6,16 +6,16 @@ This skill now targets a structured `figure_brief -> chart registry -> palette r
 
 Required fields:
 
-- `id`
 - `story_goal`
-- `data_shape`
 - `field_mapping`
-- `figure_role`
-- `style_mode`
-- `palette_mode`
 
 Optional fields:
 
+- `id`
+- `data_shape`
+- `figure_role`
+- `style_mode`
+- `palette_mode`
 - `candidate_chart_types`
 - `notes`
 
@@ -38,12 +38,12 @@ Example:
 
 ## Selection Policy
 
-- Prefer Tier 1 charts when they match the story goal.
-- If `candidate_chart_types` names a known chart, respect it as the primary recommendation.
-- If the primary chart is Tier 2 or Tier 3, keep it as the conceptual recommendation but emit fallback code from `fallback_chart`.
-- If two options are equally valid, choose the simpler chart first.
-- For `paper-main`, bias toward readability.
-- For `slides` or `style-forward`, style-heavy options are acceptable as the primary recommendation, but only Tier 1 fallbacks get code in v1.
+- Default behavior is executable-first: prefer the best Tier 1 chart that can emit runnable code now.
+- If `candidate_chart_types` names a known unsupported chart, keep it as `conceptual_chart` and emit executable code from a supported primary chart.
+- `candidate_chart_types` limits the conceptual request space; it does not override the executable-first primary output.
+- Explicit incompatible palette requests are rejected instead of silently rewritten.
+- Missing chart-required fields are rejected before template rendering.
+- `paper-main` and `readable` remain the conservative default assumptions.
 
 ## Tiering
 
@@ -73,8 +73,8 @@ Example:
 | `show_matrix_pattern` | `heatmap` | `Awesome-Scientific-Figures/热力图.ipynb` |
 | `benchmark_tradeoff_with_uncertainty` | `benchmark_scatter_error` | `Awesome-Scientific-Figures/散点图_误差棒组合图.ipynb` |
 | `show_network_relations` | `correlation_network` | `Awesome-Scientific-Figures/相关性网络热图.ipynb` |
-| `show_hierarchy` | `sunburst` | `Awesome-Scientific-Figures/旭日图.ipynb` |
-| `show_flow_relationship` | `chord` | `Awesome-Scientific-Figures/弦图.ipynb` |
+| `show_hierarchy` | `stacked_bar` executable primary, `sunburst` conceptual-on-request | `Awesome-Scientific-Figures/旭日图.ipynb` |
+| `show_flow_relationship` | `correlation_network` executable primary, `chord` conceptual-on-request | `Awesome-Scientific-Figures/弦图.ipynb` |
 
 ## Common “Not Recommended” Cases
 
@@ -90,3 +90,11 @@ Example:
 - `references/palette-registry.json`: palette metadata
 - `templates/*.py.tmpl`: Tier 1 Python templates
 - `scripts/generate_figure_response.py`: selector and renderer
+- `scripts/figure_runtime/`: strict runtime validation, selection, and rendering helpers
+
+## Error Semantics
+
+- Input must be a single brief object, not an array.
+- Unknown `story_goal`, `figure_role`, `style_mode`, `palette_mode`, and `candidate_chart_types` are rejected.
+- Explicit palette values must be compatible with the selected executable chart.
+- Chart-required `field_mapping` keys must be present before rendering.

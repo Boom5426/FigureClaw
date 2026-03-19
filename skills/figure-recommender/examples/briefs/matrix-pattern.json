@@ -1,0 +1,14 @@
+{
+  "id": "fig-02",
+  "story_goal": "show_matrix_pattern",
+  "data_shape": "matrix",
+  "field_mapping": {
+    "row": "gene",
+    "column": "sample",
+    "value": "z_score"
+  },
+  "figure_role": "paper-main",
+  "style_mode": "readable",
+  "palette_mode": "diverging"
+}
+

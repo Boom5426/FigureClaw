@@ -17,7 +17,8 @@
       "primary_chart_id": "contrast_dot",
       "code_chart_id": "contrast_dot",
       "fallback_chart_id": null,
-      "palette_mode": "paper-neutral"
+      "palette_mode": "paper-neutral",
+      "conceptual_chart_id": null
     }
   },
   {
@@ -39,7 +40,8 @@
       "primary_chart_id": "stacked_bar",
       "code_chart_id": "stacked_bar",
       "fallback_chart_id": null,
-      "palette_mode": "paper-emphasis"
+      "palette_mode": "paper-emphasis",
+      "conceptual_chart_id": null
     }
   },
   {
@@ -60,7 +62,8 @@
       "primary_chart_id": "raincloud",
       "code_chart_id": "raincloud",
       "fallback_chart_id": null,
-      "palette_mode": "paper-neutral"
+      "palette_mode": "paper-neutral",
+      "conceptual_chart_id": null
     }
   },
   {
@@ -82,7 +85,8 @@
       "primary_chart_id": "line",
       "code_chart_id": "line",
       "fallback_chart_id": null,
-      "palette_mode": "sequential"
+      "palette_mode": "sequential",
+      "conceptual_chart_id": null
     }
   },
   {
@@ -104,7 +108,8 @@
       "primary_chart_id": "multi_trend",
       "code_chart_id": "multi_trend",
       "fallback_chart_id": null,
-      "palette_mode": "sequential"
+      "palette_mode": "sequential",
+      "conceptual_chart_id": null
     }
   },
   {
@@ -126,7 +131,8 @@
       "primary_chart_id": "heatmap",
       "code_chart_id": "heatmap",
       "fallback_chart_id": null,
-      "palette_mode": "diverging"
+      "palette_mode": "diverging",
+      "conceptual_chart_id": null
     }
   },
   {
@@ -150,7 +156,8 @@
       "primary_chart_id": "benchmark_scatter_error",
       "code_chart_id": "benchmark_scatter_error",
       "fallback_chart_id": null,
-      "palette_mode": "paper-emphasis"
+      "palette_mode": "paper-emphasis",
+      "conceptual_chart_id": null
     }
   },
   {
@@ -173,7 +180,8 @@
       "primary_chart_id": "correlation_network",
       "code_chart_id": "correlation_network",
       "fallback_chart_id": null,
-      "palette_mode": "diverging"
+      "palette_mode": "diverging",
+      "conceptual_chart_id": null
     }
   },
   {
@@ -195,10 +203,11 @@
       ]
     },
     "expected": {
-      "primary_chart_id": "sunburst",
+      "primary_chart_id": "stacked_bar",
       "code_chart_id": "stacked_bar",
-      "fallback_chart_id": "stacked_bar",
-      "palette_mode": "paper-neutral"
+      "fallback_chart_id": null,
+      "palette_mode": "paper-neutral",
+      "conceptual_chart_id": "sunburst"
     }
   },
   {
@@ -220,10 +229,11 @@
       ]
     },
     "expected": {
-      "primary_chart_id": "chord",
+      "primary_chart_id": "correlation_network",
       "code_chart_id": "correlation_network",
-      "fallback_chart_id": "correlation_network",
-      "palette_mode": "presentation-bold"
+      "fallback_chart_id": null,
+      "palette_mode": "presentation-bold",
+      "conceptual_chart_id": "chord"
     }
   }
 ]

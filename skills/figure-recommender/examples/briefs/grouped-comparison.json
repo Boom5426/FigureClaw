@@ -1,0 +1,13 @@
+{
+  "id": "fig-01",
+  "story_goal": "compare_group_difference",
+  "data_shape": "grouped_metric",
+  "field_mapping": {
+    "category": "condition",
+    "value": "score"
+  },
+  "figure_role": "paper-main",
+  "style_mode": "readable",
+  "palette_mode": "paper-neutral"
+}
+

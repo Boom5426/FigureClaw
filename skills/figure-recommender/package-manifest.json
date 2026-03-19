@@ -1,0 +1,33 @@
+{
+  "include": [
+    "SKILL.md",
+    "README.md",
+    "package-manifest.json",
+    "references/chart-registry.json",
+    "references/figure-recommender.md",
+    "references/palette-registry.json",
+    "examples/briefs/grouped-comparison.json",
+    "examples/briefs/matrix-pattern.json",
+    "examples/briefs/benchmark-tradeoff.json",
+    "examples/briefs/network-relations.json",
+    "examples/briefs/hierarchy-conceptual-request.json",
+    "scripts/generate_figure_response.py",
+    "scripts/package_skill.py",
+    "scripts/figure_runtime/__init__.py",
+    "scripts/figure_runtime/contracts.py",
+    "scripts/figure_runtime/errors.py",
+    "scripts/figure_runtime/registry.py",
+    "scripts/figure_runtime/render.py",
+    "scripts/figure_runtime/selection.py",
+    "scripts/figure_runtime/validation.py",
+    "templates/contrast_dot.py.tmpl",
+    "templates/stacked_bar.py.tmpl",
+    "templates/raincloud.py.tmpl",
+    "templates/line.py.tmpl",
+    "templates/multi_trend.py.tmpl",
+    "templates/heatmap.py.tmpl",
+    "templates/benchmark_scatter_error.py.tmpl",
+    "templates/correlation_network.py.tmpl"
+  ]
+}
+
