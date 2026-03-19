@@ -5,6 +5,8 @@ English | [简体中文](README_CN.md)
 <!-- Hero image slot: add FigureClaw.png to the repository root -->
 ![FigureClaw](FigureClaw.png)
 
+Make scientific figure creation easy: FigureClaw is designed for high-quality research visualization, automatically recommending the most suitable chart and generating reproducible Python plotting code in one click—helping you create publication-ready figures effortlessly.
+
 Executable-first scientific figure skills with runnable Python plotting code for
 Codex, Claude Code, and Dr. Claw.
 
