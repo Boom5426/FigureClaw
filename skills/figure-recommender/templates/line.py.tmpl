@@ -1,0 +1,37 @@
+from __future__ import annotations
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+PALETTE = __PALETTE__
+TITLE = __TITLE__
+X_LABEL = __X_LABEL__
+Y_LABEL = __Y_LABEL__
+X_COL = __X_COL__
+Y_COL = __Y_COL__
+SERIES_COL = __SERIES_COL__
+
+
+def build_figure(df: pd.DataFrame):
+    data = df.copy().sort_values([SERIES_COL, X_COL])
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=150)
+    for idx, (series_name, subset) in enumerate(data.groupby(SERIES_COL, sort=False)):
+        ax.plot(
+            subset[X_COL],
+            subset[Y_COL],
+            marker="o",
+            linewidth=2,
+            markersize=5,
+            color=PALETTE[idx % len(PALETTE)],
+            label=str(series_name),
+        )
+
+    ax.set_title(TITLE, fontsize=15)
+    ax.set_xlabel(X_LABEL, fontsize=12)
+    ax.set_ylabel(Y_LABEL, fontsize=12)
+    ax.legend(frameon=False, title=SERIES_COL)
+    ax.grid(axis="y", linestyle="--", alpha=0.25)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    fig.tight_layout()
+    return fig

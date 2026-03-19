@@ -1,0 +1,42 @@
+from __future__ import annotations
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+PALETTE = __PALETTE__
+TITLE = __TITLE__
+X_LABEL = __X_LABEL__
+Y_LABEL = __Y_LABEL__
+CATEGORY_COL = __CATEGORY_COL__
+SUBGROUP_COL = __SUBGROUP_COL__
+VALUE_COL = __VALUE_COL__
+
+
+def build_figure(df: pd.DataFrame):
+    data = df.copy()
+    pivot = (
+        data.pivot_table(index=CATEGORY_COL, columns=SUBGROUP_COL, values=VALUE_COL, aggfunc="sum", fill_value=0)
+        .sort_index()
+    )
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=150)
+    bottom = None
+    for idx, column in enumerate(pivot.columns):
+        values = pivot[column]
+        ax.bar(
+            pivot.index,
+            values,
+            bottom=bottom,
+            color=PALETTE[idx % len(PALETTE)],
+            label=str(column),
+            width=0.72,
+        )
+        bottom = values if bottom is None else bottom + values
+
+    ax.set_title(TITLE, fontsize=15)
+    ax.set_xlabel(X_LABEL, fontsize=12)
+    ax.set_ylabel(Y_LABEL, fontsize=12)
+    ax.legend(frameon=False, title=SUBGROUP_COL)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    fig.tight_layout()
+    return fig

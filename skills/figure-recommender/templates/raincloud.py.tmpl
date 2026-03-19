@@ -1,0 +1,54 @@
+from __future__ import annotations
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+PALETTE = __PALETTE__
+TITLE = __TITLE__
+X_LABEL = __X_LABEL__
+Y_LABEL = __Y_LABEL__
+CATEGORY_COL = __CATEGORY_COL__
+VALUE_COL = __VALUE_COL__
+
+
+def build_figure(df: pd.DataFrame):
+    data = df.copy()
+    categories = list(data[CATEGORY_COL].dropna().unique())
+    palette = PALETTE[: max(1, len(categories))]
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=150)
+    sns.violinplot(
+        data=data,
+        x=CATEGORY_COL,
+        y=VALUE_COL,
+        hue=CATEGORY_COL,
+        palette=palette,
+        inner=None,
+        cut=0,
+        linewidth=0,
+        dodge=False,
+        legend=False,
+        ax=ax,
+    )
+    sns.stripplot(
+        data=data,
+        x=CATEGORY_COL,
+        y=VALUE_COL,
+        hue=CATEGORY_COL,
+        palette=palette,
+        dodge=False,
+        legend=False,
+        alpha=0.7,
+        size=4,
+        edgecolor="white",
+        linewidth=0.4,
+        ax=ax,
+    )
+    ax.set_title(TITLE, fontsize=15)
+    ax.set_xlabel(X_LABEL, fontsize=12)
+    ax.set_ylabel(Y_LABEL, fontsize=12)
+    ax.grid(axis="y", linestyle="--", alpha=0.25)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    fig.tight_layout()
+    return fig

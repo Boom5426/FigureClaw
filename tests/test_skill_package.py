@@ -1,0 +1,34 @@
+from __future__ import annotations
+
+import re
+import subprocess
+import zipfile
+from pathlib import Path
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_SCRIPT = REPO_ROOT / "skills" / "figure-recommender" / "scripts" / "package_skill.py"
+
+
+def test_package_skill_builds_dr_claw_compatible_zip(tmp_path: Path) -> None:
+    completed = subprocess.run(
+        ["python3", str(PACKAGE_SCRIPT)],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    zip_path = Path(completed.stdout.strip())
+    assert zip_path.exists()
+
+    with zipfile.ZipFile(zip_path) as archive:
+        names = set(archive.namelist())
+        assert "figure-recommender/SKILL.md" in names
+        assert "figure-recommender/references/chart-registry.json" in names
+        assert "figure-recommender/references/palette-registry.json" in names
+        assert "figure-recommender/templates/contrast_dot.py.tmpl" in names
+        assert "figure-recommender/examples/figure_briefs.json" in names
+        assert "figure-recommender/scripts/generate_figure_response.py" in names
+        skill_md = archive.read("figure-recommender/SKILL.md").decode("utf-8")
+
+    assert re.search(r"^name:\s*figure-recommender\s*$", skill_md, re.MULTILINE)

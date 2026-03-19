@@ -1,0 +1,72 @@
+{
+  "palettes": [
+    {
+      "palette_mode": "paper-neutral",
+      "display_name": "Paper Neutral",
+      "colors": [
+        "#4C566A",
+        "#5E81AC",
+        "#88C0D0",
+        "#A3BE8C",
+        "#EBCB8B",
+        "#D08770"
+      ],
+      "usage": "Default for paper-ready figures where readability matters more than stylistic punch.",
+      "avoid": "Do not use when the plot requires strong positive/negative contrast."
+    },
+    {
+      "palette_mode": "paper-emphasis",
+      "display_name": "Paper Emphasis",
+      "colors": [
+        "#D55E00",
+        "#0072B2",
+        "#009E73",
+        "#CC79A7",
+        "#F0E442",
+        "#56B4E9"
+      ],
+      "usage": "Good for methods comparisons and benchmark plots that need a few standout series.",
+      "avoid": "Do not use for dense heatmaps."
+    },
+    {
+      "palette_mode": "sequential",
+      "display_name": "Sequential",
+      "colors": [
+        "#F7FBFF",
+        "#C6DBEF",
+        "#6BAED6",
+        "#3182BD",
+        "#08519C"
+      ],
+      "usage": "Ordered trends, trajectories, and monotonic intensity scales.",
+      "avoid": "Do not use for signed matrices with negative values."
+    },
+    {
+      "palette_mode": "diverging",
+      "display_name": "Diverging",
+      "colors": [
+        "#3B4CC0",
+        "#7B9FF9",
+        "#F7F7F7",
+        "#F4987A",
+        "#B40426"
+      ],
+      "usage": "Best for signed effects, z-scores, and correlation-like weights around a midpoint.",
+      "avoid": "Do not use for categorical bars with many unrelated groups."
+    },
+    {
+      "palette_mode": "presentation-bold",
+      "display_name": "Presentation Bold",
+      "colors": [
+        "#003049",
+        "#D62828",
+        "#F77F00",
+        "#FCBF49",
+        "#2A9D8F",
+        "#8D99AE"
+      ],
+      "usage": "Slides and demos where strong contrast is acceptable.",
+      "avoid": "Do not use for subtle supplementary plots."
+    }
+  ]
+}

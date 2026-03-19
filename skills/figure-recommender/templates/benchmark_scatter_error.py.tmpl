@@ -1,0 +1,43 @@
+from __future__ import annotations
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+PALETTE = __PALETTE__
+TITLE = __TITLE__
+X_LABEL = __X_LABEL__
+Y_LABEL = __Y_LABEL__
+X_COL = __X_COL__
+Y_COL = __Y_COL__
+XERR_COL = __XERR_COL__
+YERR_COL = __YERR_COL__
+LABEL_COL = __LABEL_COL__
+
+
+def build_figure(df: pd.DataFrame):
+    data = df.copy()
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=150)
+    for idx, row in data.reset_index(drop=True).iterrows():
+        color = PALETTE[idx % len(PALETTE)]
+        ax.errorbar(
+            row[X_COL],
+            row[Y_COL],
+            xerr=row[XERR_COL],
+            yerr=row[YERR_COL],
+            fmt="o",
+            color=color,
+            ecolor=color,
+            elinewidth=1.2,
+            capsize=3,
+            markersize=7,
+        )
+        ax.text(row[X_COL], row[Y_COL], f" {row[LABEL_COL]}", color=color, va="center", fontsize=9)
+
+    ax.set_title(TITLE, fontsize=15)
+    ax.set_xlabel(X_LABEL, fontsize=12)
+    ax.set_ylabel(Y_LABEL, fontsize=12)
+    ax.grid(linestyle="--", alpha=0.25)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    fig.tight_layout()
+    return fig

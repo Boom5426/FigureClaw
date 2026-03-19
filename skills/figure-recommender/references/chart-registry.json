@@ -1,0 +1,292 @@
+{
+  "charts": [
+    {
+      "chart_id": "contrast_dot",
+      "display_name": "对比点图",
+      "support_level": "tier1",
+      "source_notebook": "Awesome-Scientific-Figures/对比点图.ipynb",
+      "backend": [
+        "matplotlib",
+        "pandas",
+        "numpy"
+      ],
+      "required_fields": [
+        "category",
+        "value"
+      ],
+      "template_file": "templates/contrast_dot.py.tmpl",
+      "palette_modes": [
+        "paper-neutral",
+        "paper-emphasis",
+        "presentation-bold"
+      ],
+      "fallback_chart": null,
+      "story_goals": [
+        "compare_group_difference"
+      ],
+      "data_shapes": [
+        "grouped_metric"
+      ]
+    },
+    {
+      "chart_id": "stacked_bar",
+      "display_name": "堆叠柱状图",
+      "support_level": "tier1",
+      "source_notebook": "Awesome-Scientific-Figures/堆叠柱状图.ipynb",
+      "backend": [
+        "matplotlib",
+        "pandas",
+        "numpy"
+      ],
+      "required_fields": [
+        "category",
+        "subgroup",
+        "value"
+      ],
+      "template_file": "templates/stacked_bar.py.tmpl",
+      "palette_modes": [
+        "paper-neutral",
+        "paper-emphasis",
+        "presentation-bold"
+      ],
+      "fallback_chart": null,
+      "story_goals": [
+        "compare_composition"
+      ],
+      "data_shapes": [
+        "composition_table",
+        "hierarchy"
+      ]
+    },
+    {
+      "chart_id": "raincloud",
+      "display_name": "云雨图",
+      "support_level": "tier1",
+      "source_notebook": "Awesome-Scientific-Figures/云雨图.ipynb",
+      "backend": [
+        "matplotlib",
+        "pandas",
+        "numpy",
+        "seaborn"
+      ],
+      "required_fields": [
+        "category",
+        "value"
+      ],
+      "template_file": "templates/raincloud.py.tmpl",
+      "palette_modes": [
+        "paper-neutral",
+        "paper-emphasis",
+        "presentation-bold"
+      ],
+      "fallback_chart": null,
+      "story_goals": [
+        "show_distribution"
+      ],
+      "data_shapes": [
+        "grouped_samples"
+      ]
+    },
+    {
+      "chart_id": "line",
+      "display_name": "折线图",
+      "support_level": "tier1",
+      "source_notebook": "Awesome-Scientific-Figures/折线图.ipynb",
+      "backend": [
+        "matplotlib",
+        "pandas",
+        "numpy"
+      ],
+      "required_fields": [
+        "x",
+        "y",
+        "series"
+      ],
+      "template_file": "templates/line.py.tmpl",
+      "palette_modes": [
+        "paper-neutral",
+        "paper-emphasis",
+        "sequential",
+        "presentation-bold"
+      ],
+      "fallback_chart": null,
+      "story_goals": [
+        "show_trend"
+      ],
+      "data_shapes": [
+        "time_series"
+      ]
+    },
+    {
+      "chart_id": "multi_trend",
+      "display_name": "多变量变化趋势图",
+      "support_level": "tier1",
+      "source_notebook": "Awesome-Scientific-Figures/多变量变化趋势图.ipynb",
+      "backend": [
+        "matplotlib",
+        "pandas",
+        "numpy"
+      ],
+      "required_fields": [
+        "x",
+        "y",
+        "series"
+      ],
+      "template_file": "templates/multi_trend.py.tmpl",
+      "palette_modes": [
+        "paper-neutral",
+        "sequential",
+        "presentation-bold"
+      ],
+      "fallback_chart": "line",
+      "story_goals": [
+        "show_multi_trend"
+      ],
+      "data_shapes": [
+        "time_series"
+      ]
+    },
+    {
+      "chart_id": "heatmap",
+      "display_name": "热力图",
+      "support_level": "tier1",
+      "source_notebook": "Awesome-Scientific-Figures/热力图.ipynb",
+      "backend": [
+        "matplotlib",
+        "pandas",
+        "seaborn"
+      ],
+      "required_fields": [
+        "row",
+        "column",
+        "value"
+      ],
+      "template_file": "templates/heatmap.py.tmpl",
+      "palette_modes": [
+        "paper-neutral",
+        "paper-emphasis",
+        "sequential",
+        "diverging"
+      ],
+      "fallback_chart": null,
+      "story_goals": [
+        "show_matrix_pattern"
+      ],
+      "data_shapes": [
+        "matrix"
+      ]
+    },
+    {
+      "chart_id": "benchmark_scatter_error",
+      "display_name": "散点图 + 误差棒",
+      "support_level": "tier1",
+      "source_notebook": "Awesome-Scientific-Figures/散点图_误差棒组合图.ipynb",
+      "backend": [
+        "matplotlib",
+        "pandas",
+        "numpy"
+      ],
+      "required_fields": [
+        "x",
+        "y",
+        "x_error",
+        "y_error",
+        "label"
+      ],
+      "template_file": "templates/benchmark_scatter_error.py.tmpl",
+      "palette_modes": [
+        "paper-neutral",
+        "paper-emphasis",
+        "presentation-bold"
+      ],
+      "fallback_chart": null,
+      "story_goals": [
+        "benchmark_tradeoff_with_uncertainty"
+      ],
+      "data_shapes": [
+        "benchmark_table"
+      ]
+    },
+    {
+      "chart_id": "correlation_network",
+      "display_name": "相关性网络热图",
+      "support_level": "tier1",
+      "source_notebook": "Awesome-Scientific-Figures/相关性网络热图.ipynb",
+      "backend": [
+        "matplotlib",
+        "pandas",
+        "numpy"
+      ],
+      "required_fields": [
+        "source",
+        "target",
+        "weight"
+      ],
+      "template_file": "templates/correlation_network.py.tmpl",
+      "palette_modes": [
+        "paper-neutral",
+        "diverging",
+        "presentation-bold"
+      ],
+      "fallback_chart": null,
+      "story_goals": [
+        "show_network_relations",
+        "show_flow_relationship"
+      ],
+      "data_shapes": [
+        "edge_table"
+      ]
+    },
+    {
+      "chart_id": "sunburst",
+      "display_name": "旭日图",
+      "support_level": "tier2",
+      "source_notebook": "Awesome-Scientific-Figures/旭日图.ipynb",
+      "backend": [
+        "plotly"
+      ],
+      "required_fields": [
+        "parent",
+        "child",
+        "value"
+      ],
+      "template_file": null,
+      "palette_modes": [
+        "paper-neutral",
+        "presentation-bold"
+      ],
+      "fallback_chart": "stacked_bar",
+      "story_goals": [
+        "show_hierarchy"
+      ],
+      "data_shapes": [
+        "hierarchy"
+      ]
+    },
+    {
+      "chart_id": "chord",
+      "display_name": "弦图",
+      "support_level": "tier3",
+      "source_notebook": "Awesome-Scientific-Figures/弦图.ipynb",
+      "backend": [
+        "pycirclize"
+      ],
+      "required_fields": [
+        "source",
+        "target",
+        "weight"
+      ],
+      "template_file": null,
+      "palette_modes": [
+        "presentation-bold"
+      ],
+      "fallback_chart": "correlation_network",
+      "story_goals": [
+        "show_flow_relationship"
+      ],
+      "data_shapes": [
+        "edge_table"
+      ]
+    }
+  ]
+}
