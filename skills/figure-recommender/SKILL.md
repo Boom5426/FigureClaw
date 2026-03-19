@@ -33,11 +33,11 @@ Do not use this skill as the primary workflow when the user:
    - `palette_mode`
    - optional `candidate_chart_types`
    - optional `notes`
-3. If the user only gives natural language, infer the brief and state assumptions briefly.
+3. If the user only gives natural language, infer the minimal brief and state assumptions briefly.
 4. Run the local helper:
    - `python3 scripts/generate_figure_response.py --brief-json '<json>'`
    - or `python3 scripts/generate_figure_response.py --brief-file <path>`
-5. Use the helper output as the default response. Do not freestyle code if a Tier 1 template exists.
+5. Use the helper output as the default response. Do not answer with handcrafted plotting code when the local helper can be run.
 6. If the primary chart is Tier 2 or Tier 3, explain that direct codegen is not shipped for that chart in v1 and use the fallback code the helper returns.
 7. If the request is in English, answer in English. Otherwise default to Chinese.
 
@@ -57,7 +57,7 @@ Adaptation notes
 ## Quality Rules
 
 - Prefer Tier 1 charts when two options are equally valid.
-- Never fabricate code for a chart that is not shipped with a local template.
+- Never fabricate direct code for a chart that is not shipped with a local template.
 - Keep notebook source paths exact, for example `Awesome-Scientific-Figures/热力图.ipynb`.
 - Keep dependency lists constrained to the local template backend.
 - If a high-complexity chart is requested, recommend it only when the data structure clearly warrants it.

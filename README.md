@@ -5,25 +5,32 @@ English | [简体中文](README_CN.md)
 <!-- Hero image slot: add FigureClaw.png to the repository root -->
 ![FigureClaw](FigureClaw.png)
 
-Executable-first scientific figure recommendations with runnable Python plotting
-code for Codex, Claude Code, and Dr. Claw.
+Executable-first scientific figure skills with runnable Python plotting code for
+Codex, Claude Code, and Dr. Claw.
 
 ## Why FigureClaw
 
-- Start from one setup prompt instead of a long manual install guide
-- Prefer charts that already ship runnable local code templates
-- Keep unsupported style-heavy charts as conceptual requests instead of
-  pretending code exists
-- Ship examples, audits, packaging tools, and local references in one portable
-  skill package
+In the era of scientific automation, the biggest pain point is still: it's hard to make beautiful, expressive, and publication-ready figures.
+
+- The difference between top-tier and ordinary journals often lies in the quality and clarity of figures.
+- Most researchers and developers struggle to create high-quality, reproducible visualizations, limiting the impact of their work.
+- FigureClaw makes "top-journal-level" figures easy, automatic, and reproducible—helping your results stand out.
+
+With FigureClaw, you get:
+- One unified setup prompt—no more long manual install guides
+- Only charts with ready-to-run local code templates are recommended by default
+- Style-heavy or unsupported charts (like sunburst, chord) are exposed as conceptual options, not fake code
+- Examples, audits, packaging tools, and local references—all in one portable skill package
 
 ## 60-Second Quick Start
+
+FigureClaw is Codex-first for first-time setup.
 
 Ask your agent to read the unified setup guide:
 
 `Read https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/setup.md and set up FigureClaw for me.`
 
-Then run the smallest local example:
+Then verify the install from the repository root:
 
 ```bash
 python3 skills/figure-recommender/scripts/generate_figure_response.py \
@@ -34,9 +41,24 @@ python3 skills/figure-recommender/scripts/generate_figure_response.py \
 You will get:
 
 - an executable `primary_chart`
+- `"contrast_dot"` as the default chart id for the grouped comparison example
 - a palette recommendation
 - dependency hints
 - runnable Python plotting code
+
+<details>
+<summary>Manual install for Codex</summary>
+
+```bash
+git clone https://github.com/Boom5426/FigureClaw.git ~/.codex/FigureClaw
+mkdir -p ~/.codex/skills
+ln -sfn ~/.codex/FigureClaw/skills/figure-recommender ~/.codex/skills/figure-recommender
+```
+
+Restart Codex after the link is created, then re-run the smoke test from
+`~/.codex/FigureClaw`.
+
+</details>
 
 ## What You Can Generate
 
@@ -57,10 +79,11 @@ supported chart.
 ## Install
 
 The preferred entrypoint is [`setup.md`](setup.md), which routes the user to
-the right flow for the current environment and includes a post-install
-verification step.
+the right flow for the current environment and includes one shared smoke test.
 
 ## Install With Codex
+
+Codex-first users should start here.
 
 Paste this into Codex:
 
@@ -69,6 +92,13 @@ Paste this into Codex:
 Manual path target:
 
 `~/.codex/skills/figure-recommender`
+
+Success looks like:
+
+- the skill exists at `~/.codex/skills/figure-recommender`
+- the smoke test prints `"primary_chart"`
+- the grouped comparison example resolves to `"contrast_dot"`
+- the response contains `"python_code"`
 
 ## Install With Claude
 
@@ -86,6 +116,22 @@ Manual path target:
 2. Upload the generated `dist/figure-recommender.zip` in the Dr. Claw Skills UI
 3. Let Dr. Claw discover the packaged `SKILL.md`, templates, references, and
    examples
+
+## Verify
+
+Run the shared smoke test from the repository root:
+
+```bash
+python3 skills/figure-recommender/scripts/generate_figure_response.py \
+  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
+  --output json
+```
+
+Confirm the response includes:
+
+- `"primary_chart"`
+- `"contrast_dot"`
+- `"python_code"`
 
 ## Example Workflow
 
@@ -140,6 +186,12 @@ The result always keeps the executable chart and generated code aligned.
 - `.claude/INSTALL.md`: Claude Code-specific install flow
 - `docs/source-audits/`: notebook source audit artifacts
 - `tests/`: regression, packaging, validation, and selection tests
+
+## Manual install
+
+Use the collapsed Codex block above for first-time manual setup. Keep
+[`setup.md`](setup.md) as the primary entrypoint unless you are debugging a
+broken local installation.
 
 ## Development
 
