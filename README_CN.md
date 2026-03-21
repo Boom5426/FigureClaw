@@ -5,8 +5,7 @@
 <!-- Hero image slot: add FigureClaw.png to the repository root -->
 ![FigureClaw](FigureClaw.png)
 
-一个面向科研出图场景的 executable-first 工具：优先返回当前就能生成可运行
-Python 代码的图，而不是先推荐一个没有代码模板的复杂图。
+让科研出图不再难：FigureClaw 专为科研高质量可视化打造，自动推荐最适合的数据图表，并一键生成可复现的 Python 绘图代码，助你轻松画出顶刊级好图。
 
 ## 为什么用 FigureClaw
 
@@ -22,29 +21,17 @@ Python 代码的图，而不是先推荐一个没有代码模板的复杂图。
 - `sunburst`、`chord` 等暂不支持的图只作为概念选项，不假装能直接生成代码
 - 自带示例、模板、参考数据、打包脚本和图源审计产物
 
-## 60 秒快速上手
+## 5 分钟跑通 Codex 首次使用
 
-FigureClaw 当前默认按 Codex-first 路径组织首次安装。
+如果你是第一次在 Codex 里用 FigureClaw，目标不是“装完”，而是 5 分钟内真的跑出第一个推荐结果，并知道下一步怎么继续。
 
-让你的 agent 先读统一安装入口：
+### 第 1 步：先让 Codex 安装它
+
+在 Codex 里直接粘贴：
 
 `Read https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/setup.md and set up FigureClaw for me.`
 
-然后在仓库根目录直接跑统一 smoke test：
-
-```bash
-python3 skills/figure-recommender/scripts/generate_figure_response.py \
-  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
-  --output json
-```
-
-你会拿到：
-
-- 当前可执行的 `primary_chart`
-- 分组比较示例默认会落到 `"contrast_dot"`
-- 配色建议
-- 依赖信息
-- 可运行的 Python 绘图代码
+如果你不想让 agent 代劳，也可以展开下面的手动安装步骤自己执行。
 
 <details>
 <summary>手动安装 Codex Skill</summary>
@@ -55,9 +42,84 @@ mkdir -p ~/.codex/skills
 ln -sfn ~/.codex/FigureClaw/skills/figure-recommender ~/.codex/skills/figure-recommender
 ```
 
-创建软链接后重启 Codex，再回到 `~/.codex/FigureClaw` 重跑上面的 smoke test。
+创建软链接后重启 Codex。
 
 </details>
+
+### 第 2 步：确认 Codex 能看到这个 skill
+
+在终端执行：
+
+```bash
+test -L ~/.codex/skills/figure-recommender
+```
+
+这条命令没有输出是正常的。只要退出码是 `0`，就说明 Codex 的 skill 目录里已经挂上了 FigureClaw。
+
+### 第 3 步：跑第一个内置示例
+
+进入仓库根目录后执行：
+
+```bash
+python3 skills/figure-recommender/scripts/generate_figure_response.py \
+  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
+  --output json
+```
+
+这是整个项目最重要的第一次运行。它不是随便吐一段 demo 文本，而是在走 FigureClaw 的真实主流程：
+
+1. 读取一个最小可用的 `figure_brief`
+2. 选择当前最合适的主图
+3. 选择配色
+4. 生成可运行的 Python 绘图代码
+
+### 第 4 步：第一次只看懂这 3 个字段就够了
+
+运行完上面的命令后，先别被整段 JSON 吓到，先只看：
+
+- `primary_chart`：系统最终推荐你实际去画的图
+- `palette`：给这张图配的颜色方案
+- `python_code`：已经生成好的 Python 绘图代码
+
+对于内置的分组比较示例，你应该看到：
+
+- `"primary_chart"`
+- `"contrast_dot"`
+- `"python_code"`
+
+这表示 FigureClaw 已经从“图表推荐”走到了“代码生成”，不是只给一个口头建议。
+
+### 第 5 步：马上把示例换成你自己的需求
+
+先用最小 brief 试一次。你可以把下面这段直接保存成一个 json 文件再运行：
+
+```json
+{
+  "story_goal": "compare_group_difference",
+  "field_mapping": {
+    "category": "condition",
+    "value": "score"
+  }
+}
+```
+
+然后执行：
+
+```bash
+python3 skills/figure-recommender/scripts/generate_figure_response.py \
+  --brief-json '{"story_goal":"compare_group_difference","field_mapping":{"category":"condition","value":"score"}}' \
+  --output json
+```
+
+到这一步，你已经不是在“测试安装”，而是在真正使用 FigureClaw 了。
+
+### 第 6 步：回到 Codex 里直接提需求
+
+重启 Codex 后，可以直接这样说：
+
+`Use the figure-recommender skill. I want to compare scores across treatment groups and generate runnable Python plotting code.`
+
+如果你还没有自己的结构化输入，也没关系。FigureClaw 的默认用法就是先根据自然语言推一个最小 brief，再继续推荐和生成代码。
 
 ## 能做什么图
 
@@ -81,6 +143,8 @@ ln -sfn ~/.codex/FigureClaw/skills/figure-recommender ~/.codex/skills/figure-rec
 
 ## Install With Codex
 
+如果你只想最快跑通，优先看上面的“5 分钟跑通 Codex 首次使用”。
+
 在 Codex 里粘贴：
 
 `Fetch and follow instructions from https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/.codex/INSTALL.md`
@@ -95,6 +159,7 @@ ln -sfn ~/.codex/FigureClaw/skills/figure-recommender ~/.codex/skills/figure-rec
 - smoke test 输出包含 `"primary_chart"`
 - 分组比较示例落到 `"contrast_dot"`
 - 输出里包含 `"python_code"`
+- 你知道 `primary_chart` 是推荐图、`python_code` 是生成代码
 
 ## Install With Claude
 

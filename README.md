@@ -22,29 +22,17 @@ With FigureClaw, you get:
 - Style-heavy or unsupported charts (like sunburst, chord) are exposed as conceptual options, not fake code
 - Examples, audits, packaging tools, and local references—all in one portable skill package
 
-## 60-Second Quick Start
+## First 5 Minutes In Codex
 
-FigureClaw is Codex-first for first-time setup.
+If this is your first time using FigureClaw in Codex, the goal is not just to install it. The goal is to get one real recommendation running in about five minutes and understand what to do next.
 
-Ask your agent to read the unified setup guide:
+### Step 1: Let Codex install it
+
+Paste this into Codex:
 
 `Read https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/setup.md and set up FigureClaw for me.`
 
-Then verify the install from the repository root:
-
-```bash
-python3 skills/figure-recommender/scripts/generate_figure_response.py \
-  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
-  --output json
-```
-
-You will get:
-
-- an executable `primary_chart`
-- `"contrast_dot"` as the default chart id for the grouped comparison example
-- a palette recommendation
-- dependency hints
-- runnable Python plotting code
+If you do not want the agent to do it for you, expand the manual install block below and run the commands yourself.
 
 <details>
 <summary>Manual install for Codex</summary>
@@ -55,10 +43,84 @@ mkdir -p ~/.codex/skills
 ln -sfn ~/.codex/FigureClaw/skills/figure-recommender ~/.codex/skills/figure-recommender
 ```
 
-Restart Codex after the link is created, then re-run the smoke test from
-`~/.codex/FigureClaw`.
+Restart Codex after the link is created.
 
 </details>
+
+### Step 2: Confirm Codex can see the skill
+
+Run:
+
+```bash
+test -L ~/.codex/skills/figure-recommender
+```
+
+No output is normal. If the exit code is `0`, the skill link exists where Codex expects it.
+
+### Step 3: Run the first built-in example
+
+From the repository root, run:
+
+```bash
+python3 skills/figure-recommender/scripts/generate_figure_response.py \
+  --brief-file skills/figure-recommender/examples/briefs/grouped-comparison.json \
+  --output json
+```
+
+This is the first important run in the project. It is not a fake demo. It executes the real FigureClaw path:
+
+1. load a minimal `figure_brief`
+2. choose the best executable primary chart
+3. choose a palette
+4. generate runnable Python plotting code
+
+### Step 4: Only read these 3 fields first
+
+When the JSON shows up, ignore the rest for a moment and only look at:
+
+- `primary_chart`: the chart FigureClaw wants you to actually draw
+- `palette`: the color system chosen for that chart
+- `python_code`: the generated plotting code
+
+For the built-in grouped comparison example, you should see:
+
+- `"primary_chart"`
+- `"contrast_dot"`
+- `"python_code"`
+
+That means FigureClaw has already moved past “chart suggestion” and reached “usable code output”.
+
+### Step 5: Replace the example with your own request
+
+Start with the smallest possible brief. You can save this as a json file or run it inline:
+
+```json
+{
+  "story_goal": "compare_group_difference",
+  "field_mapping": {
+    "category": "condition",
+    "value": "score"
+  }
+}
+```
+
+Then run:
+
+```bash
+python3 skills/figure-recommender/scripts/generate_figure_response.py \
+  --brief-json '{"story_goal":"compare_group_difference","field_mapping":{"category":"condition","value":"score"}}' \
+  --output json
+```
+
+At that point you are no longer just validating the install. You are actually using FigureClaw.
+
+### Step 6: Go back to Codex and ask for a real figure
+
+After restarting Codex, you can say:
+
+`Use the figure-recommender skill. I want to compare scores across treatment groups and generate runnable Python plotting code.`
+
+If you do not have a structured input yet, that is fine. FigureClaw can start from natural language, infer a minimal brief, and continue from there.
 
 ## What You Can Generate
 
@@ -85,6 +147,8 @@ the right flow for the current environment and includes one shared smoke test.
 
 Codex-first users should start here.
 
+If you want the shortest onboarding path, read the “First 5 Minutes In Codex” section above first.
+
 Paste this into Codex:
 
 `Fetch and follow instructions from https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/.codex/INSTALL.md`
@@ -99,6 +163,7 @@ Success looks like:
 - the smoke test prints `"primary_chart"`
 - the grouped comparison example resolves to `"contrast_dot"`
 - the response contains `"python_code"`
+- you understand that `primary_chart` is the recommendation and `python_code` is the generated code
 
 ## Install With Claude
 

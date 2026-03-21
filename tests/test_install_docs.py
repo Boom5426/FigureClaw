@@ -31,6 +31,10 @@ def test_platform_install_guides_exist_and_use_expected_skill_paths() -> None:
     assert "cd ~/.codex/FigureClaw" in codex_install
     assert "If it does not show up in Codex" in codex_install
     assert "test -L ~/.codex/skills/figure-recommender" in codex_install
+    assert "What the smoke test means" in codex_install
+    assert "First real use" in codex_install
+    assert "primary_chart" in codex_install
+    assert "python_code" in codex_install
 
     assert claude_install_path.exists()
     claude_install = claude_install_path.read_text(encoding="utf-8")
@@ -52,8 +56,8 @@ def test_readmes_cover_codex_claude_and_dr_claw_install_flows() -> None:
     assert "[English](README.md)" in zh_readme
     assert "FigureClaw.png" in root_readme
     assert "FigureClaw.png" in zh_readme
-    assert "60-Second Quick Start" in root_readme
-    assert "60 秒快速上手" in zh_readme
+    assert "5 分钟跑通 Codex 首次使用" in zh_readme
+    assert "First 5 Minutes In Codex" in root_readme
     assert "<details>" in root_readme
     assert "Manual install" in root_readme
     assert "<details>" in zh_readme
@@ -66,6 +70,10 @@ def test_readmes_cover_codex_claude_and_dr_claw_install_flows() -> None:
     assert "## Install With Dr. Claw" in root_readme
     assert "https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/.codex/INSTALL.md" in root_readme
     assert "https://raw.githubusercontent.com/Boom5426/FigureClaw/refs/heads/main/.claude/INSTALL.md" in root_readme
+    assert "Only read these 3 fields first" in root_readme
+    assert "第一次只看懂这 3 个字段就够了" in zh_readme
+    assert "马上把示例换成你自己的需求" in zh_readme
+    assert "Replace the example with your own request" in root_readme
 
     assert "~/.codex/skills/" in skill_readme
     assert "~/.claude/skills/" in skill_readme
